@@ -29,11 +29,14 @@ app.use(cors())
 app.use(express.json());
 
 app.post('/api/question', async (req, res) => {
+    
     const { question } = req.body;
-
+    
     // Process the user question with the trained NLP model
     const response = await manager.process('en', question);
-
+    console.log("Query--",req.body.question);
+    console.log("reply--", response.answer);
+    
     // Respond with the bot's answer
     if (response.answer) {
         res.json({ answer: response.answer });
